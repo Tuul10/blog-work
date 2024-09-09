@@ -12,6 +12,8 @@ import { Facebook } from "../components/Icons/Facebook";
 import { Twitter } from "../components/Icons/Twitter";
 import { Instagram } from "../components/Icons/Instagram";
 import { Negative } from "../components/Icons/Negative";
+import Navbar from "../components/Navbar";
+import Link from "next/link";
 const url = "https://dev.to/api/articles";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -20,8 +22,8 @@ const tags = ["Design", "Travel", "Fashion", "Technology", "Branding"];
 const names = ["Terms of Use", "Privacy Policy", "Cookie Policy"];
 
 const Page = () => {
-  const { data, error, isLoading } = useSWR(url, fetcher);
-  console.log(data);
+  const { data: blogs = {}, error, isLoading } = useSWR(url, fetcher);
+
   if (isLoading) {
     return <p>...loading</p>;
   }
@@ -75,8 +77,8 @@ const Page = () => {
         </div>
       </div>
       <div className="grid grid-cols-3  max-w-[1230px] mx-auto ">
-        {data.map((blog) => {
-          return (
+        {blogs.map((blog) => (
+          <Link href={`blog/${blog.id}`}>
             <div>
               <BlogCard
                 key={blog.id}
@@ -86,8 +88,8 @@ const Page = () => {
                 date={blog.published_at}
               />
             </div>
-          );
-        })}
+          </Link>
+        ))}
       </div>
       <div className="bg-[#F6F6F7] h-[495px] ">
         <div className=" pt-16 items-start mx-auto max-w-[1230px] flex gap-5 mb-6">
