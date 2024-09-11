@@ -1,26 +1,24 @@
-import { Item } from "@/components/Item";
-import { Logo } from "@/components/Logo";
-import { Input } from "../components/Input";
 import useSWR from "swr";
-import { Searching } from "@/components/Searching";
 import { Hero } from "@/components/Hero";
 import { Title } from "@/components/Title";
 import { Tags } from "@/components/Tags";
-import Link from "next/link";
 import { Trend } from "@/components/Trend";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { About } from "@/components/About";
-import { Blog } from "./blog";
+import Blog from "./blog/blog";
+import Navbar from "@/components/Navbar";
+import { ThemeContext } from "@/components/ThemeContext";
 const url = "https://dev.to/api/articles";
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const tags = ["Design", "Travel", "Fashion", "Technology", "Branding"];
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Page = () => {
   const { data: blogs = {}, error, isLoading } = useSWR(url, fetcher);
-  const [load, setLoad] = useState(6);
+  const light = useContext(ThemeContext);
   const [hide, setHide] = useState(4);
-  const [view, setView] = useState(5);
+  const [tagCount, setTagCount] = useState(5);
+
+  console.log(light);
   if (isLoading) {
     return <p>...loading</p>;
   }
@@ -29,46 +27,26 @@ const Page = () => {
     return <p>...oh sorry error</p>;
   }
   const posts = blogs.slice(0, hide);
-  const cards = blogs.slice(0, load);
-  const tags = blogs.slice(0, view);
+  const tags = blogs.slice(0, tagCount);
+
   // const cards = blogs.slice(0, hide);
   const viewAll = () => {
-    setView((p) => p + 25);
+    setTagCount(tagCount.length);
   };
   const hidemore = () => {
     setHide((p) => p + 4);
   };
-  const loadmore = () => {
-    setLoad((p) => p + 6);
-  };
 
   return (
     <div className="">
-      <div className="w-[1917px] py-8  flex mx-auto  max-w-[1230px]">
-        <Logo />
-        <div className="flex text-2xl items-center">
-          <h1 className="text-[#3B3C4A] ">Meta</h1>
-          <h1 className="text-[#141624] font-bold">Blog</h1>
-        </div>
-
-        <div className="flex w-[667px] gap-10 justify-center items-center">
-          <Link href={`/`}>Home</Link>
-          <Link href={`blog/`}>Blog</Link>
-          <Link>Contact</Link>
-        </div>
-        <div className="flex bg-[#F4F4F5] rounded-md p-2 ">
-          <Input />
-          <Searching />
-        </div>
-      </div>
+      <Navbar />
       <div>
         <Hero />
-
         <div className="mx-auto  max-w-[1230px]">
           <Title text={"Trending"} />
         </div>
-        <div className="  mb-[100px] mt-8 mx-auto  max-w-[1230px] ">
-          <div className=" flex mx-auto  max-w-[1230px] gap-5 mt-8 mb-[100px]">
+        <div className="  ">
+          <div className=" flex  gap-5 mt-8 mb-[100px] mx-auto  max-w-[1230px]">
             {posts.map((blog, index) => {
               return (
                 <div key={blog.id}>
@@ -84,28 +62,24 @@ const Page = () => {
             })}
           </div>
         </div>
-        <Blog />
       </div>
       <div className="mx-auto  max-w-[1230px]">
         <Title text={"All blog post"} />
         <div className="flex gap-5 mt-8 mb-8 flex-wrap">
           <p className="text-xs font-bold text-[#D4A373]">All</p>
           {tags.map((blog, index) => {
-            return <Tags key={index} text={blog.tag_list[0]} />;
+            return (
+              <div>
+                <Tags key={index} text={blog.tag_list[0]} />
+              </div>
+            );
           })}
           <button className="flex ml-auto" onClick={viewAll}>
             View All
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-3  max-w-[1230px] mx-auto ">
-        {cards.map((blog) => (
-          <Link href={`blog/${blog.id}`}>
-            <Blog />
-          </Link>
-        ))}
-      </div>
-
+      <Blog />
       <About />
     </div>
   );

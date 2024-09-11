@@ -1,5 +1,3 @@
-import { About } from "@/components/About";
-import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useState } from "react";
 import useSWR from "swr";
@@ -25,10 +23,6 @@ const Blog = () => {
 
   return (
     <div>
-      <Navbar />
-      <div className="mt-12 mb-12 max-w-[1230px] mx-auto">
-        <h1 className="text-2xl font-bold">All Blog Post</h1>
-      </div>
       <div className="grid grid-cols-3  max-w-[1230px] mx-auto ">
         {cards.map((blog) => (
           <Link href={`blog/${blog.id}`}>
@@ -52,7 +46,6 @@ const Blog = () => {
           Load more
         </button>
       </div>
-      <About />
     </div>
   );
 };

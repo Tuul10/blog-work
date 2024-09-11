@@ -10,7 +10,7 @@ const names = ["Terms of Use", "Privacy Policy", "Cookie Policy"];
 
 export const About = () => {
   return (
-    <div className="bg-[#F6F6F7] h-[495px] ">
+    <div className="bg-[#F6F6F7] h-[495px] mt-[100px]">
       <div className=" pt-16 items-start mx-auto max-w-[1230px] flex gap-5 mb-6">
         <div>
           <Title text={"About"} />

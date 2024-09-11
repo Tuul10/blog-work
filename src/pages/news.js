@@ -1,8 +1,18 @@
+import Navbar from "@/components/Navbar";
 import useSWR from "swr";
-const url = "https://dev.to/api/articles/{id}";
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import Blog from "./blog/blog";
+import { About } from "@/components/About";
 
 const News = () => {
-  const { data, error, isLoading } = useSWR(url, fetcher);
-  console.log(data);
+  return (
+    <div>
+      <Navbar />
+      <div className="mt-12 mb-12 max-w-[1230px] mx-auto">
+        <h1 className="text-2xl font-bold">All Blog Post</h1>
+      </div>
+      <Blog />
+      <About />
+    </div>
+  );
 };
+export default News;

@@ -1,9 +1,10 @@
 import Link from "next/link";
+
 export const Trend = (props) => {
   const { img, tags, text, id } = props;
   return (
     <Link href={`blog/${id}`}>
-      <div className="relative carousel-item card">
+      <div className="relative ">
         <div className="">
           <div
             style={{

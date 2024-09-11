@@ -25,7 +25,7 @@ export const Hero = () => {
     if (slide > 0) setSlide((prev) => prev - 1);
   };
   return (
-    <div className="mx-auto max-w-[1230px]">
+    <div className="mx-auto max-w-[1230px] mt-[100px]">
       {blogs.map((blog, index) => {
         if (index === slide) {
           return (

@@ -1,3 +1,3 @@
 export const Input = () => {
-  return <input className="" placeholder="searching"></input>;
+  return <input className="bg-[#F4F4F5] " placeholder="searching"></input>;
 };

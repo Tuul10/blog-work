@@ -1,9 +1,8 @@
+import Link from "next/link";
 import { Input } from "../components/Input";
 import { Item } from "./Item";
 import { Logo } from "./Logo";
 import { Searching } from "./Searching";
-
-const texts = ["Home", "Blog", "Contact"];
 
 const Navbar = () => {
   return (
@@ -15,11 +14,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex w-[667px] gap-10 justify-center items-center">
-        {texts.map((text, index) => {
-          return <Item key={index} text={text} />;
-        })}
+        <Link href={`/`}>Home</Link>
+        <Link href={`/news`}>Blog</Link>
+        <Link href={`/contact`}>Contact</Link>
       </div>
-      <div className="flex bg-[#F4F4F5] rounded-md p-2 ">
+      <div className="flex bg-[#F4F4F5]  p-2 rounded-md ">
         <Input />
         <Searching />
       </div>
