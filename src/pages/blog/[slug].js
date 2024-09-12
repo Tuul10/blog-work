@@ -1,12 +1,8 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import parse from "html-react-parser";
-import { Logo } from "@/components/Logo";
-import { Input } from "../../components/Input";
-import { Searching } from "@/components/Searching";
-import { Item } from "@/components/Item";
+import Markdown from "react-markdown";
+import Navbar from "@/components/Navbar";
 
-const texts = ["Home", "Blog", "Contact"];
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Slug = () => {
@@ -18,29 +14,14 @@ const Slug = () => {
 
   if (isLoading) return null;
 
-  const body_html = blogDetail?.body_html;
-  console.log(body_html);
+  const bodyMarkdown = blogDetail?.body_markdown;
 
   return (
     <div>
-      <div className="w-[1917px] py-8  flex mx-auto  max-w-[1230px]">
-        <Logo />
-        <div className="flex text-2xl items-center">
-          <h1 className="text-[#3B3C4A] ">Meta</h1>
-          <h1 className="text-[#141624] font-bold">Blog</h1>
-        </div>
-
-        <div className="flex w-[667px] gap-10 justify-center items-center">
-          {texts.map((text, index) => {
-            return <Item key={index} text={text} />;
-          })}
-        </div>
-        <div className="flex bg-[#F4F4F5] rounded-md p-2 ">
-          <Input />
-          <Searching />
-        </div>
+      <Navbar />
+      <div className="mx-auto w-[800px] prose">
+        <Markdown>{bodyMarkdown}</Markdown>
       </div>
-      <div className="mx-auto w-[800px]">{parse(body_html)}</div>
     </div>
   );
 };
