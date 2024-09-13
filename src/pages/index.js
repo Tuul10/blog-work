@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { Hero } from "@/components/Hero";
+
 import { Title } from "@/components/Title";
 import { Trend } from "@/components/Trend";
 import { useContext, useState } from "react";
@@ -7,6 +7,7 @@ import { About } from "@/components/About";
 import Blog from "./blog/blog";
 import Navbar from "@/components/Navbar";
 import { ThemeContext } from "@/components/ThemeContext";
+import { Hero, Screen } from "@/components/Hero";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -14,15 +15,13 @@ const Page = (props) => {
   const [numberOfTags, setNumberOfTags] = useState(5);
   const url3 = `https://dev.to/api/tags?per_page=${numberOfTags}`;
   const { data: tags = [] } = useSWR(url3, fetcher);
-  console.log(tags);
   const [tagName, setTagName] = useState("all");
   const url2 = `https://dev.to/api/articles?tag=${tagName}`;
   const { data: blogs = {}, error, isLoading } = useSWR(url2, fetcher);
   const light = useContext(ThemeContext);
   const [hide, setHide] = useState(4);
-  const [tagCount, setTagCount] = useState(5);
   const [tagCountChangeText, setTagCountChangeText] = useState("All view");
-  const [selectedTag, setSelectedTag] = useState("");
+  const [slide, setSlide] = useState(1);
 
   if (isLoading) {
     return <p>...loading</p>;
@@ -59,13 +58,6 @@ const Page = (props) => {
     setTagName(tag);
   };
 
-  const filterTags = blogs.filter((blog) => {
-    if (selectedTag === "") {
-      return true;
-    }
-    return blog.tag_list.includes(selectedTag);
-  });
-
   return (
     <div className="">
       <Navbar />
@@ -95,7 +87,9 @@ const Page = (props) => {
       <div className="mx-auto  max-w-[1230px]">
         <Title text={"All blog post"} />
         <div className="flex gap-5 mt-8 mb-8 flex-wrap">
-          <p className="text-xs font-bold text-[#D4A373]">All</p>
+          <p className="text-xs flex font-bold items-center justify-center text-[#D4A373]">
+            All
+          </p>
           <div className="flex gap-5 flex-wrap">
             {tags.map((tag, index) => {
               return (

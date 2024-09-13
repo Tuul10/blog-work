@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@parse/react": "^0.0.1-alpha.18",
+    "@tailwindcss/typography": "^0.5.15",
     "html-react-parser": "^5.1.15",
     "moment": "^2.30.1",
     "next": "14.2.7",

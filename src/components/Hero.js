@@ -1,6 +1,5 @@
 import useSWR from "swr";
 import moment from "moment";
-import { Tags } from "./Tags";
 import { useState } from "react";
 import { Left } from "./Left";
 import { Right } from "./Right";
@@ -38,6 +37,7 @@ export const Hero = () => {
           );
         }
       })}
+
       <div className="flex mr-auto gap-1 mb-[100px] justify-end">
         <button
           onClick={prevSlide}
@@ -56,7 +56,7 @@ export const Hero = () => {
   );
 };
 
-const Screen = (props) => {
+export const Screen = (props) => {
   const { img, text, tags, date, id } = props;
   return (
     <Link href={`blog/${id}`}>
