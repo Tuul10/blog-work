@@ -9,7 +9,7 @@ const challenge = () => {
 
     if (isStart === true) {
       interval = setInterval(() => {
-        setSecond((prev) => prev + 1);
+        if (second < 60) setSecond((prev) => prev + 1);
       }, 1000);
     }
     if (isStart === false) {

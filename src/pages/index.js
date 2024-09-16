@@ -1,5 +1,4 @@
 import useSWR from "swr";
-
 import { Title } from "@/components/Title";
 import { Trend } from "@/components/Trend";
 import { useContext, useState } from "react";
@@ -21,7 +20,6 @@ const Page = (props) => {
   const light = useContext(ThemeContext);
   const [hide, setHide] = useState(4);
   const [tagCountChangeText, setTagCountChangeText] = useState("All view");
-  const [slide, setSlide] = useState(1);
 
   if (isLoading) {
     return <p>...loading</p>;
@@ -32,6 +30,7 @@ const Page = (props) => {
   }
 
   const posts = blogs.slice(0, hide);
+  console.log(posts);
   const changeTagCountText = () => {
     if (tagCountChangeText === "All view") setTagCountChangeText("Show less");
     else {
