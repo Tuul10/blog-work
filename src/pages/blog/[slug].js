@@ -11,14 +11,13 @@ const Slug = () => {
   const url = `https://dev.to/api/articles/${slug}`;
 
   const { data: blogDetail = {}, isLoading } = useSWR(url, fetcher);
-
+  console.log(blogDetail);
   if (isLoading) return null;
 
   const bodyMarkdown = blogDetail?.body_markdown;
 
   return (
     <div>
-      <Navbar />
       <div className="mx-auto w-[800px] prose">
         <Markdown>{bodyMarkdown}</Markdown>
       </div>

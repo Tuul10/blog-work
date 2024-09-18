@@ -28,12 +28,14 @@ export const Hero = () => {
       {blogs.map((blog, index) => {
         if (index === slide) {
           return (
-            <Screen
-              key={index}
-              img={blog.cover_image}
-              text={blog.title}
-              tags={blog.tag_list[0]}
-            />
+            <Link href={`blog/${blog.id}`}>
+              <Screen
+                key={index}
+                img={blog.cover_image}
+                text={blog.title}
+                tags={blog.tag_list[0]}
+              />
+            </Link>
           );
         }
       })}
@@ -59,28 +61,26 @@ export const Hero = () => {
 export const Screen = (props) => {
   const { img, text, tags, date, id } = props;
   return (
-    <Link href={`blog/${id}`}>
-      <div className="relative">
-        <div
-          style={{
-            height: 600,
-            backgroundImage: `url(${img})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            borderRadius: "12px",
-          }}
-        ></div>
-        <div className="p-10 bg-white text-start w-[598px] flex flex-col gap-7 absolute bottom-2 left-2 rounded-md">
-          <div className="boder bg-blue-700 text-white py-1 px-[10px] font-normal text-sm rounded-lg w-fit ">
-            {tags}
-          </div>
-          <div className="text-2xl font-medium">{text}</div>
-          <div className="font-normal text-gray-400">
-            {moment(date).format("ll")}
-          </div>
+    <div className="relative">
+      <div
+        style={{
+          height: 600,
+          backgroundImage: `url(${img})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          borderRadius: "12px",
+        }}
+      ></div>
+      <div className="p-10 bg-white text-start w-[598px] flex flex-col gap-7 absolute bottom-2 left-2 rounded-md">
+        <div className="boder bg-blue-700 text-white py-1 px-[10px] font-normal text-sm rounded-lg w-fit ">
+          {tags}
+        </div>
+        <div className="text-2xl font-medium">{text}</div>
+        <div className="font-normal text-gray-400">
+          {moment(date).format("ll")}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

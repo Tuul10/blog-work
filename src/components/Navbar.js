@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Input } from "../components/Input";
-import { Item } from "./Item";
 import { Logo } from "./Logo";
 import { Searching } from "./Searching";
 
