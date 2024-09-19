@@ -2,22 +2,18 @@ import useSWR from "swr";
 import { Title } from "@/components/Title";
 import { Trend } from "@/components/Trend";
 import { useContext, useState } from "react";
-import { About } from "@/components/About";
-import { Blog } from "../components/Blog";
-import Navbar from "@/components/Navbar";
 import { ThemeContext } from "@/components/ThemeContext";
-import { Hero, Screen } from "@/components/Hero";
-import Link from "next/link";
+import { Hero } from "@/components/Hero";
+import BigBlog from "../components/BigBlog";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Page = (props) => {
-  const [load, setLoad] = useState(9);
   const url = "https://dev.to/api/articles";
   const [numberOfTags, setNumberOfTags] = useState(5);
   const url3 = `https://dev.to/api/tags?per_page=${numberOfTags}`;
   const { data: tags = [] } = useSWR(url3, fetcher);
-  const [tagName, setTagName] = useState("all");
+  const [tagName, setTagName] = useState("");
   const { data: blogs = {}, error, isLoading } = useSWR(url, fetcher);
   const light = useContext(ThemeContext);
   const [hide, setHide] = useState(4);
@@ -33,12 +29,6 @@ const Page = (props) => {
 
   const posts = blogs.slice(0, hide);
 
-  const loadmore = () => {
-    setLoad((p) => p + 9);
-  };
-
-  const cards = blogs.slice(0, load);
-
   const changeTagCountText = () => {
     if (tagCountChangeText === "All view") setTagCountChangeText("Show less");
     else {
@@ -52,7 +42,7 @@ const Page = (props) => {
   };
 
   const viewAll = () => {
-    if (numberOfTags === 5) setNumberOfTags(50);
+    if (numberOfTags === 5) setNumberOfTags(30);
     else {
       setNumberOfTags(5);
     }
@@ -64,6 +54,15 @@ const Page = (props) => {
   const handleSelectTag = (tag) => {
     setTagName(tag);
   };
+
+  const allTags = () => {};
+
+  const filteredBlogs = blogs.filter((blog) => {
+    if (tagName === "") {
+      return blog;
+    }
+    return blog.tag_list.includes(tagName);
+  });
 
   return (
     <div className="">
@@ -93,7 +92,10 @@ const Page = (props) => {
       <div className="mx-auto  max-w-[1230px]">
         <Title text={"All blog post"} />
         <div className="flex gap-5 mt-8 mb-8 flex-wrap">
-          <p className="text-xs flex font-bold items-center justify-center text-[#D4A373]">
+          <p
+            onClick={allTags}
+            className="text-xs flex font-bold items-center justify-center text-[#D4A373]"
+          >
             All
           </p>
           <div className="flex gap-5 flex-wrap">
@@ -101,7 +103,9 @@ const Page = (props) => {
               return (
                 <p
                   className="flex flex-wrap"
-                  onClick={() => handleSelectTag(tag.name)}
+                  onClick={() => {
+                    handleSelectTag(tag.name);
+                  }}
                   key={index}
                 >
                   {tag.name}
@@ -114,29 +118,7 @@ const Page = (props) => {
           </button>
         </div>
       </div>
-      <div>
-        <div className="grid grid-cols-3  max-w-[1230px] mx-auto ">
-          {cards.map((blog) => (
-            <div>
-              <Blog
-                key={blog.id}
-                image={blog.cover_image}
-                tags={blog.tag_list}
-                title={blog.title}
-                date={blog.published_at}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="  flex justify-center items-center   max-w-[1230px] mx-auto mt-4 mb-4">
-          <button
-            onClick={loadmore}
-            className=" py-3 px-5 flex justify-center items-center w-fit h-10 rounded-md border border-s-gray-400"
-          >
-            Load more
-          </button>
-        </div>
-      </div>
+      <BigBlog filteredBlogs={filteredBlogs} />
     </div>
   );
 };

@@ -10,8 +10,8 @@ export const Right = () => {
       <path
         d="M1 1L8.5 8.5L1 16"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

@@ -28,7 +28,7 @@ export const Hero = () => {
       {blogs.map((blog, index) => {
         if (index === slide) {
           return (
-            <Link href={`blog/${blog.id}`}>
+            <Link href={`blog/${blog.id}`} key={index}>
               <Screen
                 key={index}
                 img={blog.cover_image}

@@ -1,11 +1,6 @@
-import Navbar from "@/components/Navbar";
-import { Input } from "../components/Input";
-import { About } from "@/components/About";
-
 const Contact = () => {
   return (
     <div className="">
-      <Navbar />
       <div className="  flex flex-col justify-center items-center mx-auto  max-w-[1230px]">
         <div className=" mt-[100px] w-[624px] ">
           <h1 className="text-4xl font-semibold">Contact Us</h1>
@@ -58,7 +53,6 @@ const Contact = () => {
           </button>
         </div>
       </div>
-      <About />
     </div>
   );
 };

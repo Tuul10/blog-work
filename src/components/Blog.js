@@ -9,9 +9,12 @@ export const Blog = (props) => {
         <div className="px-4 py-2 border border-solid rounded-xl flex flex-col  w-[360px]  gap-6  mt-5   ">
           <img className="w-[360px] h-[240px] rounded-md" src={image} />
           <div className="flex gap-2 flex-wrap">
-            {tags.map((tag) => {
+            {tags.map((tag, index) => {
               return (
-                <p className="text-[#4B6BFB] bg-[#f3f6f9] w-fit rounded-md px-2 flex-wrap">
+                <p
+                  className="text-[#4B6BFB] bg-[#f3f6f9] w-fit rounded-md px-2 flex-wrap"
+                  key={index}
+                >
                   {tag}
                 </p>
               );
