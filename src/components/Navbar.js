@@ -14,7 +14,7 @@ const Navbar = () => {
 
       <div className="flex w-[667px] gap-10 justify-center items-center">
         <Link href={`/`}>Home</Link>
-        <Link href={`/BigBlog`}>Blog</Link>
+        <Link href={`/allBlog`}>Blog</Link>
         <Link href={`/contact`}>Contact</Link>
       </div>
       <div className="flex bg-[#F4F4F5]  p-2 rounded-md ">

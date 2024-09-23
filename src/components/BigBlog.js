@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Blog } from "./Blog";
+import { useQueryState } from "nuqs";
 
 const BigBlog = (props) => {
   const { filteredBlogs } = props;
@@ -14,9 +15,6 @@ const BigBlog = (props) => {
 
   return (
     <div className="max-w-[1230px] mx-auto">
-      {/* <div>
-        <h1 className="text-xl font-bold mt-[50px] mb-[20px] p-4">All Blog</h1>
-      </div> */}
       <div className="grid grid-cols-3   ">
         {cards.map((blog, index) => (
           <div key={index}>

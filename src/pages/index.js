@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "@/components/ThemeContext";
 import { Hero } from "@/components/Hero";
 import BigBlog from "../components/BigBlog";
+import { Blog } from "@/components/Blog";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -18,6 +19,7 @@ const Page = (props) => {
   const light = useContext(ThemeContext);
   const [hide, setHide] = useState(4);
   const [tagCountChangeText, setTagCountChangeText] = useState("All view");
+  const [returnAll, setREturnAll] = useState([]);
 
   if (isLoading) {
     return <p>...loading</p>;
@@ -55,14 +57,16 @@ const Page = (props) => {
     setTagName(tag);
   };
 
-  const allTags = () => {};
-
   const filteredBlogs = blogs.filter((blog) => {
-    if (tagName === "") {
+    if (tagName === "All") {
       return blog;
     }
     return blog.tag_list.includes(tagName);
   });
+
+  const allTags = () => {
+    setTagName("All");
+  };
 
   return (
     <div className="">
