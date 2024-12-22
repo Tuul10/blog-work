@@ -18,8 +18,10 @@ export const Trend = (props) => {
             }}
           ></div>
           <div className="p-2 text-start w-[230px] flex flex-col gap-7 absolute bottom-2 left-2 rounded-md">
-            <div className=" boder bg-blue-700 text-white py-1 px-[10px] font-normal text-sm rounded-lg w-fit">
-              {tags}
+            <div className="flex gap-2 text-wrap">
+              <div className="flex boder bg-blue-700 text-white py-1 px-[10px] font-normal text-sm rounded-lg w-fit">
+                {tags}
+              </div>
             </div>
             <div className="text-lg text-white font-medium">{text}</div>
           </div>

@@ -1,25 +1,21 @@
 import useSWR from "swr";
 import { Title } from "@/components/Title";
 import { Trend } from "@/components/Trend";
-import { useContext, useState } from "react";
-import { ThemeContext } from "@/components/ThemeContext";
+import { useState } from "react";
 import { Hero } from "@/components/Hero";
 import BigBlog from "../components/BigBlog";
-import { Blog } from "@/components/Blog";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const Page = (props) => {
+const Page = () => {
   const url = "https://dev.to/api/articles";
   const [numberOfTags, setNumberOfTags] = useState(5);
   const url3 = `https://dev.to/api/tags?per_page=${numberOfTags}`;
   const { data: tags = [] } = useSWR(url3, fetcher);
-  const [tagName, setTagName] = useState("");
+  const [tagName, setTagName] = useState("All");
   const { data: blogs = {}, error, isLoading } = useSWR(url, fetcher);
-  const light = useContext(ThemeContext);
   const [hide, setHide] = useState(4);
   const [tagCountChangeText, setTagCountChangeText] = useState("All view");
-  const [returnAll, setREturnAll] = useState([]);
 
   if (isLoading) {
     return <p>...loading</p>;
@@ -51,10 +47,6 @@ const Page = (props) => {
   };
   const hidemore = () => {
     setHide((p) => p + 4);
-  };
-
-  const handleSelectTag = (tag) => {
-    setTagName(tag);
   };
 
   const filteredBlogs = blogs.filter((blog) => {
@@ -108,7 +100,7 @@ const Page = (props) => {
                 <p
                   className="flex flex-wrap"
                   onClick={() => {
-                    handleSelectTag(tag.name);
+                    setTagName(tag.name);
                   }}
                   key={index}
                 >
