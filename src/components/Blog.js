@@ -1,4 +1,5 @@
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 
 export const Blog = (props) => {
@@ -7,7 +8,7 @@ export const Blog = (props) => {
     <Link href={`blog/${id}`}>
       <div>
         <div className="px-4 py-2 border border-solid rounded-xl flex flex-col  w-[360px]  gap-6  mt-5   ">
-          <img className="w-[360px] h-[240px] rounded-md" src={image} />
+          <Image src={image} alt="" width={360} height={240} />
           <div className="flex gap-2 flex-wrap">
             {tags.map((tag, index) => {
               return (
