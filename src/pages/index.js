@@ -4,6 +4,8 @@ import { Trend } from "@/components/Trend";
 import { useState } from "react";
 import { Hero } from "@/components/Hero";
 import BigBlog from "../components/BigBlog";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -16,6 +18,7 @@ const Page = () => {
   const { data: blogs = {}, error, isLoading } = useSWR(url, fetcher);
   const [hide, setHide] = useState(4);
   const [tagCountChangeText, setTagCountChangeText] = useState("All view");
+  const router = useRouter();
 
   if (isLoading) {
     return <p>...loading</p>;
@@ -71,15 +74,13 @@ const Page = () => {
           <div className=" flex  gap-5 mt-8 mb-[100px] mx-auto  max-w-[1230px]">
             {posts.map((blog, index) => {
               return (
-                <div key={blog.id}>
-                  <Trend
-                    id={blog.id}
-                    key={index}
-                    img={blog.cover_image}
-                    text={blog.title}
-                    tags={blog.tag_list[0]}
-                  />
-                </div>
+                <Trend
+                  key={index}
+                  id={blog.id}
+                  img={blog.cover_image}
+                  text={blog.title}
+                  tags={blog.tag_list[0]}
+                />
               );
             })}
           </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Blog } from "./Blog";
+import Link from "next/link";
 
 const BigBlog = (props) => {
   const { filteredBlogs } = props;
@@ -22,17 +23,15 @@ const BigBlog = (props) => {
         {cards.map((blog, index) => {
           const { cover_image, tag_list, title, published_at } = blog || {};
           if (!cover_image || !tag_list || !title || !published_at) return null;
-
           return (
-            <div key={index}>
-              <Blog
-                key={blog.id}
-                image={cover_image}
-                tags={tag_list}
-                title={title}
-                date={published_at}
-              />
-            </div>
+            <Blog
+              key={index}
+              image={cover_image}
+              tags={tag_list}
+              title={title}
+              date={published_at}
+              id={blog.id}
+            />
           );
         })}
       </div>

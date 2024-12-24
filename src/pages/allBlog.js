@@ -34,15 +34,6 @@ const AllBlog = () => {
       <div className="max-w-[1230px] mx-auto">
         <div className=" gap-4">
           <BigBlog filteredBlogs={posts} />
-          {/* {posts.map((blog) => (
-            <Blog
-              key={blog.id}
-              image={blog.cover_image}
-              tags={blog.tag_list}
-              title={blog.title}
-              date={blog.published_at}
-            />
-          ))} */}
         </div>
       </div>
       <div className="flex justify-center items-center max-w-[1230px] mx-auto mt-4 mb-4">

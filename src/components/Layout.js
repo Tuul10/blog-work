@@ -5,7 +5,7 @@ export const Layout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      {children}
+      <div className="flex-grow">{children}</div>
       <About />
     </div>
   );
